@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Password - Password Manager{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-warning"></i> 
+                    <strong>Warning:</strong> This action cannot be undone!
+                </div>
+                
+                <p>Are you sure you want to delete the following password?</p>
+                
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6><strong>{{ password.title }}</strong></h6>
+                        {% if password.username %}
+                            <p class="mb-1"><strong>Username:</strong> {{ password.username }}</p>
+                        {% endif %}
+                        {% if password.url %}
+                            <p class="mb-1"><strong>URL:</strong> {{ password.url }}</p>
+                        {% endif %}
+                        {% if password.category %}
+                            <p class="mb-1"><strong>Category:</strong> {{ password.category }}</p>
+                        {% endif %}
+                        <small class="text-muted">Created: {{ password.created_at|date:"M d, Y" }}</small>
+                    </div>
+                </div>
+                
+                <form method="post" class="mt-3">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'password_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Yes, Delete Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
